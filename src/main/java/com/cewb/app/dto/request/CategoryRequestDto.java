@@ -1,4 +1,4 @@
-package com.cewb.app.dto;
+package com.cewb.app.dto.request;
 
 public class CategoryRequestDto {
 }
