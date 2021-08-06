@@ -10,6 +10,4 @@ public class UserDetailsServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSecurityDto {
+public class AuthSecurityDto {
 
     private Long id;
 

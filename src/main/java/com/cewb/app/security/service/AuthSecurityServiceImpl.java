@@ -3,15 +3,10 @@ package com.cewb.app.security.service;
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
-import com.cewb.app.security.dto.UserSecurityDto;
-import lombok.NoArgsConstructor;
+import com.cewb.app.security.dto.AuthSecurityDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AuthSecurityServiceImpl implements AuthSecurityService{
@@ -26,7 +21,7 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
     }
 
     @Override
-    public User register(UserSecurityDto request) {
+    public User register(AuthSecurityDto request) {
         Role role = new Role();
         role.setId(2L);
 
