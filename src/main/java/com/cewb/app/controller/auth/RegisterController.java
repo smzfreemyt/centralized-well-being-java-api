@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class RegisterController {
 
+    @Autowired
     private AuthSecurityService authSecurityService;
 
     @PostMapping("/register")

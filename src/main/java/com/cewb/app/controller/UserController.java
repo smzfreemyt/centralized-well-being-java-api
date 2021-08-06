@@ -32,7 +32,7 @@ public class UserController {
         return "Registration";
     }
 
-    @PreAuthorize("isAnonymous() && #text.length() < 6")
+/*    @PreAuthorize("isAnonymous() && #text.length() < 6")
     @GetMapping("/message/{text}")
     public String hello(@PathVariable String text) {
         return "Hello anonymus user!";
@@ -71,5 +71,5 @@ public class UserController {
     public String checkRefreshToken() {
         return "Compare old and new token";
     }
-
+ */
 }

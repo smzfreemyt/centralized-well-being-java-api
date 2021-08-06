@@ -21,16 +21,23 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
-    private String username;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
 
-    @OneToMany(targetEntity = Role.class)
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String name, String email, String password) {
+        this.name = name;
         this.password = password;
+        this.email = email;
     }
 }
