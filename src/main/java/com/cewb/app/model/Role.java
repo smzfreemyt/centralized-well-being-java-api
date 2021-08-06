@@ -1,28 +1,24 @@
 package com.cewb.app.model;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "roles")
+@Getter @Setter @NoArgsConstructor
+public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-    private String title;
-
-    private String body;
-    
-    @CreatedDate
-    private Date date_created;
-
+	
+	private String name;
+	
 }

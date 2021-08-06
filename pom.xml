@@ -46,6 +46,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <scope>provided</scope>
+    </dependency>
 		
 		<!-- Jasper Reports Related Dependencies -->
 		<dependency>
@@ -71,7 +76,25 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
+	
+	<profiles>
+	    <profile>
+	        <id>dev</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>
+	        <properties>
+	            <spring.profiles.active>dev</spring.profiles.active>
+	        </properties>
+	    </profile>
+	    <profile>
+	        <id>prod</id>
+	        <properties>
+	            <spring.profiles.active>prod</spring.profiles.active>
+	        </properties>
+	    </profile>
+	</profiles>
+	
 	<build>
 		<plugins>
 			<plugin>
