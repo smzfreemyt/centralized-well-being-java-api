@@ -1,10 +1,13 @@
 <h2>Back-end API for Centralized well-being Employee</h2>
 
+@authors:
+- Zed, Rov, Sam
+
 `$ git clone <repo>`
 
 <h3>REST API REQUEST SAMPLE</h3>
 
-- ALL - GET `/api/posts/`
+- ALL - GET `/api/posts`
 - CREATE - POST `/api/posts`
 - GET ITEM - GET `/api/posts/{id}`
 - UPDATE - PUT `/api/posts/{id}`
