@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "users")
 @Getter @Setter @NoArgsConstructor
-public class User implements UserDetails {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,24 +27,10 @@ public class User implements UserDetails {
     private String email;
 
     @OneToMany(targetEntity = Role.class)
-    private List<Role> roles;
-
-    @CreatedBy
-    private String createdBy;
-    private boolean accountNonExpired = true;
-    private boolean accountNonLocked = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
+    private Role role;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
     }
 }
