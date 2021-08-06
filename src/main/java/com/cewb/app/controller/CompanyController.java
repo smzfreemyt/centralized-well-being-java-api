@@ -27,9 +27,9 @@ public class CompanyController {
 	
 	//Create company
 	@PostMapping("/companies")
-	public void createCompany(@RequestBody Company company) {
+	public Company createCompany(@RequestBody Company company) {
 		log.info("Create company endpoint");
-		companyService.save(company);
+		return companyService.save(company);
 	}
 	
 	//Read company
@@ -56,8 +56,8 @@ public class CompanyController {
 	
 	//Delete Company
 	@DeleteMapping("/companies/{id}")
-	public void deleteCompany(@PathVariable Long id) {
+	public Company deleteCompany(@PathVariable Long id) {
 		log.info("Delete company with id " + id);
-		companyService.delete(id);
+		return companyService.delete(id);
 	}
 }
