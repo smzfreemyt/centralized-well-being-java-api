@@ -33,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
         if(result.isPresent())
             company = result.get();
         else
-            throw new EntityNotFoundException("Cant find ompany with id - " + id);
+            throw new EntityNotFoundException("Cant find company with id - " + id);
         return company;
 	}
 
