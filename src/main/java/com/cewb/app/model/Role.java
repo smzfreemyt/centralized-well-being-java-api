@@ -1,6 +1,5 @@
 package com.cewb.app.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,20 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
-@Table(name = "companies")
-public class Company {
+@Table(name = "roles")
+@Getter @Setter @NoArgsConstructor
+public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
-	
-	@Column(name = "logo_link")
-	private String logo;
 	
 }
