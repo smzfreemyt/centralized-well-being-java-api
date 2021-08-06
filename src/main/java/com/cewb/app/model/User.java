@@ -35,9 +35,10 @@ public class User{
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public User(String name, String email, String password) {
+    public User(String name, String password, String email, Role role) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 }

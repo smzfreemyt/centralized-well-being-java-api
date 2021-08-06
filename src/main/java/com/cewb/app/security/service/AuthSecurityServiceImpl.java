@@ -1,5 +1,6 @@
 package com.cewb.app.security.service;
 
+import com.cewb.app.config.UserRole;
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
@@ -11,10 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthSecurityServiceImpl implements AuthSecurityService{
 
+    // transfer this to constats later
+    private static final Long  ROLE_USER = 2L;
+    private static final Long  ROLE_ADMIN = 1L;
+
     @Autowired
     private UserRepository userRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthSecurityServiceImpl(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -22,14 +27,11 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
 
     @Override
     public User register(AuthSecurityDto request) {
-        Role role = new Role();
-        role.setId(2L);
-
-        User user = new User();
-        user.setName(request.getName());
-        user.setPassword(this.passwordEncoder.encode(request.getPassword()));
-        user.setEmail(request.getEmail());
-        user.setRole(role);
-        return this.userRepository.save(user);
+        return this.userRepository.save(new User(
+                request.getName(),
+                passwordEncoder.encode(request.getPassword()),
+                request.getEmail(),
+                new Role(ROLE_USER))
+        );
     }
 }

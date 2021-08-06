@@ -20,5 +20,8 @@ public class Role {
 	private Long id;
 	
 	private String name;
-	
+
+	public Role(Long id) {
+		this.id = id;
+	}
 }
