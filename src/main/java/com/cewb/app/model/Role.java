@@ -1,21 +1,21 @@
 package com.cewb.app.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "roles")
+@Getter
+@Setter
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "email")
-    private String email;
-
+    @Column(name = "name")
     private String name;
-
-    private String password;
-
-    private Role role;
 }
