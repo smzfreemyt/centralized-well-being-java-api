@@ -2,6 +2,8 @@ package com.cewb.app.service.impl;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
         if(result.isPresent())
             company = result.get();
         else
-            throw new RuntimeException("Cant find ompany with id - " + id);
+            throw new EntityNotFoundException("Cant find ompany with id - " + id);
         return company;
 	}
 
