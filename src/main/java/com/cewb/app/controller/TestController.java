@@ -1,26 +1,37 @@
 package com.cewb.app.controller;
 
+import com.cewb.app.security.dto.JwtResponse;
+import com.cewb.app.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class TestController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    JwtProvider jwtProvider;
+
+
     public TestController() {
         this.login();
     }
 
-    public void login(){
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken("sam", "test")
-            );
-            System.out.println("AUTH: NAA");
-        } catch (Exception e) {
-            System.out.println("AUTH: CANNOT");
-        }
+
+    public ResponseEntity<?> login() {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken("sam", "test")
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateJwtToken(authentication);
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 }

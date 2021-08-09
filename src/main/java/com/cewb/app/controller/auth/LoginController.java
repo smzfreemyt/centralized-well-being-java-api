@@ -2,7 +2,6 @@ package com.cewb.app.controller.auth;
 
 import com.cewb.app.model.User;
 import com.cewb.app.security.dto.LoginSecurityDto;
-import com.cewb.app.security.dto.RegisterSecurityDto;
 import com.cewb.app.security.service.AuthSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
