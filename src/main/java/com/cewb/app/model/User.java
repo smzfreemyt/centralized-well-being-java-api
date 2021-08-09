@@ -1,6 +1,7 @@
 package com.cewb.app.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class User{
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, length = 50)
     private String email;
 
     @ManyToOne
