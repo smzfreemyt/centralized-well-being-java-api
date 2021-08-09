@@ -22,11 +22,11 @@ public class MainApp implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if(roleRepository.count() < 1) {
-			Role client = new Role();
 			Role admin = new Role();
-			client.setName("USER");
+			Role client = new Role();
 			admin.setName("ADMIN");
-			roleRepository.saveAll(Arrays.asList(client, admin));
+			client.setName("USER");
+			roleRepository.saveAll(Arrays.asList(admin, client));
 		}
 	}
 }
