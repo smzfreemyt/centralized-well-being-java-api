@@ -14,13 +14,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/CEWBS/api/companies?page=0",
+							"raw": "localhost:8080/api/companies?page=0",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"CEWBS",
 								"api",
 								"companies"
 							],
@@ -40,16 +39,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/CEWBS/api/companies/1",
+							"raw": "localhost:8080/api/companies/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"CEWBS",
 								"api",
 								"companies",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -91,7 +89,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Twitter\",\r\n    \"logo\": \"https://www.imore.com/sites/imore.com/files/styles/large/public/field/image/2019/12/twitter-logo.jpg\"\r\n}",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"name\": \"Twitter\",\r\n    \"logo\": \"https://www.imore.com/sites/imore.com/files/styles/large/public/field/image/2019/12/twitter-logo.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -99,13 +97,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/CEWBS/api/companies",
+							"raw": "localhost:8080/api/companies",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"CEWBS",
 								"api",
 								"companies"
 							]
@@ -119,16 +116,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/CEWBS/api/companies/1",
+							"raw": "localhost:8080/api/companies/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"CEWBS",
 								"api",
 								"companies",
-								"1"
+								"2"
 							]
 						}
 					},
