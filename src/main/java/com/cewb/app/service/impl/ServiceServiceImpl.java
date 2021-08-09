@@ -41,7 +41,7 @@ public class ServiceServiceImpl implements ServiceService {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Service save(Long companyId, Service service) {
 		if(!AppUtility.isNull(companyId)) {			
 			Company company = companyService.findById(companyId);
