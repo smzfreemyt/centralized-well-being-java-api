@@ -1,5 +1,6 @@
 package com.cewb.app;
 
+import com.cewb.app.controller.TestController;
 import com.cewb.app.model.Role;
 import com.cewb.app.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,6 @@ public class MainApp implements CommandLineRunner {
 			client.setName("USER");
 			roleRepository.saveAll(Arrays.asList(admin, client));
 		}
+		new TestController();
 	}
 }

@@ -5,24 +5,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class AuthSecurityDto {
+public class LoginSecurityDto {
 
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Email address field is required.")
     @Email(message = "Email address must be a valid email.")
     private String email;
 
-    @NotEmpty
-    @Min(value = 5, message = "Password must be at least 5 characters")
+    @NotEmpty(message = "Please enter your password.")
     private String password;
-
-    @NotEmpty
-    private String name;
 }

@@ -17,14 +17,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/admin/login").permitAll()
-                .antMatchers("/user").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+    protected void configure(HttpSecurity http) throws Exception {
+        http = http.csrf().disable();
+
+       http.authorizeRequests()
+            .antMatchers("/api/register").permitAll()
+            .antMatchers("/api/admin/login").permitAll()
+            .antMatchers("/user").permitAll()
+            .anyRequest().authenticated()
+            .and()
+               .httpBasic();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.cewb.app.controller.auth;
 
 import com.cewb.app.model.User;
-import com.cewb.app.security.dto.AuthSecurityDto;
+import com.cewb.app.security.dto.RegisterSecurityDto;
 import com.cewb.app.security.service.AuthSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class RegisterController {
     private AuthSecurityService authSecurityService;
 
     @PostMapping("/register")
-    public User register(@Valid @RequestBody AuthSecurityDto user){
+    public User register(@Valid @RequestBody RegisterSecurityDto user){
         return this.authSecurityService.register(user);
     }
 }
