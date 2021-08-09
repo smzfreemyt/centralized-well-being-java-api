@@ -16,6 +16,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public User register(@Validated @RequestBody AuthSecurityDto user){
+        System.out.println("REGISTRAR");
         return this.authSecurityService.register(user);
     }
 }
