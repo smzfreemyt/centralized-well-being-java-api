@@ -1,7 +1,5 @@
 package com.cewb.app.service.impl;
 
-import java.util.Optional;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company save(Company company) {
         return companyRepository.save(company);
+	}
+
+	@Override
+	public Company update(Company company) {
+		findById(company.getId());
+		return save(company);
 	}
 
 	@Override

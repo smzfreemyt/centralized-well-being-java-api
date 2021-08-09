@@ -50,7 +50,7 @@ public class CompanyController {
 	@PutMapping("/companies")
 	public Company updateCompany(@RequestBody Company company) {
 		log.info("Update company with id " + company.getId());
-		companyService.save(company);
+		companyService.update(company);
 		return company;
 	}
 	

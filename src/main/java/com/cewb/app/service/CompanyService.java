@@ -12,6 +12,8 @@ public interface CompanyService {
 	
 	Company save(Company company);
 	
+	Company update(Company company);
+	
 	Company delete(Long id);
 	
 }
