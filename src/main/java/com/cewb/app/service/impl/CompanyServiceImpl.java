@@ -1,7 +1,5 @@
 package com.cewb.app.service.impl;
 
-import java.util.Optional;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +24,10 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Company findById(Long id) {
-		Optional<Company> result = companyRepository.findById(id);
-
-        Company company;
-
-        if(result.isPresent())
-            company = result.get();
-        else
-            throw new EntityNotFoundException("Cant find company with id - " + id);
-        return company;
+		Company result = companyRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Cant find company with id - " + id));
+		
+        return result;
 	}
 
 	@Override
@@ -43,9 +36,17 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		findById(id);
-		companyRepository.deleteById(id);
+	public Company update(Company company) {
+		findById(company.getId());
+		return save(company);
+	}
+
+	@Override
+	public Company delete(Long id) {
+		Company company = findById(id);
+		
+		companyRepository.delete(company);
+		return company;
 	}
 	
 }

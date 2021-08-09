@@ -1,6 +1,5 @@
 package com.cewb.app.exception;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +48,6 @@ public class RestExceptionHandler {
 	//Generic error response for exceptions
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(Exception exc) {
-    	exc.printStackTrace();
         // Create RestErrorResponse
     	RestErrorResponse error = new RestErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
