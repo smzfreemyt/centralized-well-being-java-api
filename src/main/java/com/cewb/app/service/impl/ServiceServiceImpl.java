@@ -65,6 +65,7 @@ public class ServiceServiceImpl implements ServiceService {
 	public Service delete(Long companyId, Long serviceId) {
 		Service service = findById(companyId, serviceId);
 		
+		System.out.println(service.getName());
 		serviceRepository.delete(service);
 		return service;
 	}

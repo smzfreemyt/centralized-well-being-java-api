@@ -32,7 +32,7 @@ public class Company {
 	private Long id;
 	
 	@NotEmpty(message = "Name must not be empty")
-	@Size(max = 25, min = 3)
+	@Size(min = 3, max = 50, message = "Name length must be between 3 and 50")
 	private String name;
 	
 	@Column(name = "logo_link")
@@ -40,7 +40,7 @@ public class Company {
 	private String logo;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Service> services;
 	
 }
