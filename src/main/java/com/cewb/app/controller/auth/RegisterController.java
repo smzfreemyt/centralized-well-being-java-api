@@ -1,5 +1,6 @@
 package com.cewb.app.controller.auth;
 
+import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.User;
 import com.cewb.app.security.dto.AuthSecurityDto;
 import com.cewb.app.security.service.AuthSecurityService;
@@ -15,7 +16,7 @@ public class RegisterController {
     private AuthSecurityService authSecurityService;
 
     @PostMapping("/register")
-    public User register(@Validated @RequestBody AuthSecurityDto user){
+    public User register(@Validated @RequestBody AuthSecurityDto user) throws ExceptionCatcher {
         return this.authSecurityService.register(user);
     }
 }

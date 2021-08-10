@@ -1,6 +1,6 @@
 package com.cewb.app.exception;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -9,6 +9,8 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -53,10 +55,32 @@ public class RestExceptionHandler {
 		}
 		return handleException(new Exception(exc.getRootCause()));
 	}
-	
+
+	@ExceptionHandler
+	public ResponseEntity<Object> handleException(MethodArgumentNotValidException exc) {
+		exc.printStackTrace();
+
+		Map<String, String> messages = new HashMap<>();
+
+		exc.getBindingResult().getAllErrors().forEach((error) -> {
+			String field = ((FieldError) error).getField();
+			String message = error.getDefaultMessage();
+			messages.put(field, message);
+		});
+
+		Map<String, Object> errors = new HashMap<>();
+		errors.put("timestamp", new Date());
+		errors.put("status", HttpStatus.BAD_REQUEST);
+		errors.put("errors", Arrays.asList(messages));
+
+		// return ResponseEntity
+		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	}
+
 	//Generic error response for exceptions
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(Exception exc) {
+		System.out.println("NAA - GENERIC");
     	exc.printStackTrace();
         // Create RestErrorResponse
     	RestErrorResponse error = new RestErrorResponse(

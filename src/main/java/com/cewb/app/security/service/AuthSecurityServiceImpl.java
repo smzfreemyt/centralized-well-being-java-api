@@ -1,6 +1,7 @@
 package com.cewb.app.security.service;
 
 import com.cewb.app.config.ConfigRole;
+import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
@@ -22,7 +23,10 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
     }
 
     @Override
-    public User register(AuthSecurityDto request) {
+    public User register(AuthSecurityDto request) throws ExceptionCatcher {
+        if(this.userRepository.existsByEmail(request.getEmail())) {
+            throw new ExceptionCatcher("Email address already exists");
+        }
         return this.userRepository.save(new User(
                 request.getName(),
                 passwordEncoder.encode(request.getPassword()),
