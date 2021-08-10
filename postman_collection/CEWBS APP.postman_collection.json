@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "14d3c4e3-11a0-4145-9a4d-79bff819aaa9",
+		"_postman_id": "f2ab4d6b-4327-406b-9986-e9ec2024244d",
 		"name": "CEWBS APP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -260,6 +260,84 @@
 								"3",
 								"services",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Save HR Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sample@gmail.com\",\r\n    \"requestor\": \"sample requestor\",\r\n    \"department\": \"OPERATIONS\",\r\n    \"classification\": \"Document\",\r\n    \"type\": \"Document - COE\",\r\n    \"purpose\": \"To get my COE\",\r\n    \"details\": \"I need my COE document for my requirements\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/reports",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"noice\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/reports/status",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all reports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/reports",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports"
 							]
 						}
 					},
