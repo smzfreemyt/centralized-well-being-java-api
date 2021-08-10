@@ -15,7 +15,7 @@ public interface UserService {
 
     User save(UserRequestDto request);
 
-    User update(User user, Long id);
+    User update(UserRequestDto user, Long id);
 
     ResponseEntity<?> delete(Long id);
 }

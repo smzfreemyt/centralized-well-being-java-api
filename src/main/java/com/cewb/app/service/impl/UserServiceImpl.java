@@ -3,6 +3,7 @@ package com.cewb.app.service.impl;
 import com.cewb.app.config.ConfigRepository;
 import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.dto.response.ResponseMessage;
+import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
 import com.cewb.app.service.UserService;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,18 +34,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserRequestDto request) {
-        return null;
-//        return this.userRepository.save(new UserRequestDto(
-//                request.getName(),
-//                request.getEmail(),
-//                request.getPassword(),
-//                new Role()
-//        ));
+        return this.userRepository.save(new User(
+                request.getName(),
+                request.getEmail(),
+                request.getPassword(),
+                new Role(request.getRole())
+        ));
     }
 
     @Override
-    public User update(User user, Long id) {
-        return null;
+    public User update(UserRequestDto user, Long id) {
+        this.findById(id);
+        return this.save(user);
     }
 
     @Override

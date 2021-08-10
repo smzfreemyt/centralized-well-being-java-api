@@ -3,6 +3,8 @@ package com.cewb.app.dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Locale;
+
 @Getter
 @Setter
 public class ResponseMessage<M> {
@@ -21,14 +23,15 @@ public class ResponseMessage<M> {
 
     public String getStringValue() {
         String str;
+        operation = operation.toLowerCase();
         switch (operation) {
-            case "DELETE":
+            case "delete":
                 str = "deleted";
                 break;
-            case "UPDATE":
+            case "update":
                 str = "updated";
                 break;
-            case "READ":
+            case "read":
                 str = "retrieved";
                 break;
             default:
