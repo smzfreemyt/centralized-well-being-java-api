@@ -26,7 +26,7 @@ public class TestController {
     public ResponseEntity<?> login() {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken("sam", "test")
+                new UsernamePasswordAuthenticationToken("sam", "test", null)
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
