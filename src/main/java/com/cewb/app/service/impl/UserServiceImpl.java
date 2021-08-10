@@ -1,5 +1,8 @@
 package com.cewb.app.service.impl;
 
+import com.cewb.app.config.ConfigRepository;
+import com.cewb.app.dto.request.UserRequestDto;
+import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
 import com.cewb.app.service.UserService;
@@ -18,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findAll(int pageNum) {
-        return this.userRepository.findAll(PageRequest.of(pageNum, 2));
+        return this.userRepository.findAll(PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
     }
 
     @Override
@@ -28,8 +31,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public User save(UserRequestDto request) {
         return null;
+//        return this.userRepository.save(new UserRequestDto(
+//                request.getName(),
+//                request.getEmail(),
+//                request.getPassword(),
+//                new Role(request.getRole())
+//        ));
     }
 
     @Override

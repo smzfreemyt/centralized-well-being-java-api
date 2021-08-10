@@ -1,6 +1,6 @@
 package com.cewb.app.security.service;
 
-import com.cewb.app.config.Config;
+import com.cewb.app.config.ConfigRole;
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
@@ -27,7 +27,7 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
                 request.getName(),
                 passwordEncoder.encode(request.getPassword()),
                 request.getEmail(),
-                new Role(Config.ROLE_USER))
+                new Role(ConfigRole.ROLE_USER))
         );
     }
 }

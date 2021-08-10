@@ -1,10 +1,13 @@
 package com.cewb.app.controller;
 
+import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestBody User request) {
+    public User create(@Valid @RequestBody UserRequestDto request) {
         return this.userService.save(request);
     }
 

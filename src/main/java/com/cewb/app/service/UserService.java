@@ -1,5 +1,6 @@
 package com.cewb.app.service;
 
+import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.model.User;
 import org.springframework.data.domain.Page;
 
@@ -9,7 +10,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    User save(User user);
+    User save(UserRequestDto request);
 
     User update(User user, Long id);
 
