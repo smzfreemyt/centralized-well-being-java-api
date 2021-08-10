@@ -17,5 +17,5 @@ public interface UserService {
 
     User update(User user, Long id);
 
-    ResponseEntity<Map<String, Object>> delete(Long id);
+    ResponseEntity<?> delete(Long id);
 }
