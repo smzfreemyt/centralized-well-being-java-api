@@ -1,5 +1,6 @@
 package com.cewb.app;
 
+import com.cewb.app.dto.response.ResponseMessage;
 import com.cewb.app.model.Role;
 import com.cewb.app.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

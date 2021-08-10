@@ -1,13 +1,16 @@
 package com.cewb.app.controller;
 
 import com.cewb.app.dto.request.UserRequestDto;
+import com.cewb.app.dto.response.ResponseMessage;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -37,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public User delete(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
         return this.userService.delete(id);
     }
 }
