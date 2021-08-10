@@ -1,14 +1,10 @@
 package com.cewb.app.model;
 
-import java.sql.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.sql.Date;
 
 @Entity
 @Table(name = "posts")
@@ -18,8 +14,12 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @Column(name = "title")
+    @NotEmpty(message = "Title must not be empty")
     private String title;
 
+    @Column(name = "body")
+    @NotEmpty(message = "Body must not be empty")
     private String body;
     
     @CreatedDate
