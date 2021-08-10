@@ -1,16 +1,13 @@
 package com.cewb.app.controller;
 
-import com.cewb.app.model.Company;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Log4j2
-@RequestMapping(name = "/api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
