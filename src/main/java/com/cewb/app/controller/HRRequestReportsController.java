@@ -1,12 +1,18 @@
 package com.cewb.app.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,7 +70,7 @@ public class HRRequestReportsController {
 	}
 	
 	@GetMapping("/reports/generate")
-	public ResponseEntity<byte[]> generateReport() throws JRException, IOException {
+	public ResponseEntity<InputStreamResource> generateReport() throws JRException, IOException {
 		try (InputStream in = getClass().getResourceAsStream("/reports/HRRequestReport.jrxml")) {
 		    JasperReport jasperReport = JasperCompileManager.compileReport(in);
 		    Map<String,Object> params = new HashMap<>();
@@ -73,8 +79,23 @@ public class HRRequestReportsController {
 		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
 		    String path = "E://demoReportOutput.pdf";
             JasperExportManager.exportReportToPdfFile(jasperPrint,path);
+            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            if (Objects.nonNull(pdfBytes)) {
+                String fileName = "dl.pdf";
+                File file = new File(fileName);
+                FileUtils.writeByteArrayToFile(file, pdfBytes); //org.apache.commons.io.FileUtils
+                InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
+                        .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                        .contentLength(file.length()) //
+                        .body(resource);
+            } else {
+            	return null;
+            }
 		}
-		return null;
 	}
 	
 }
