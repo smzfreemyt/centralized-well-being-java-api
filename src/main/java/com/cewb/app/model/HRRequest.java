@@ -61,6 +61,9 @@ public class HRRequest {
 	@Column(name = "coa_new_approver_approver")
 	private String coaNewApproverApprover;
 		
+	@Column(name = "status")
+	private String status;
+	
 	@Column(name = "coa_effective_date")
 	private Date coaEffectiveDate;
 	
