@@ -80,7 +80,6 @@ public class RestExceptionHandler {
 	//Generic error response for exceptions
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(Exception exc) {
-		System.out.println("NAA - GENERIC");
     	exc.printStackTrace();
         // Create RestErrorResponse
     	RestErrorResponse error = new RestErrorResponse(

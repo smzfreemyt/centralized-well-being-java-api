@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
     public User store(UserRequestDto request) {
         return this.userRepository.save(new User(
                 request.getName(),
-                request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
+                request.getEmail(),
                 new Role(request.getRole())
         ));
     }
