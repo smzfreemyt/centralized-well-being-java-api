@@ -3,10 +3,7 @@ package com.cewb.app.model;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
 import javax.validation.constraints.NotEmpty;
->>>>>>> develop
 import java.sql.Date;
 
 @Entity
