@@ -43,22 +43,23 @@ public class UserServiceImpl implements UserService {
         if(this.userRepository.existsByEmail(request.getEmail())) {
             throw new ExceptionCatcher("Email address already exists");
         }
-        return this.store(request);
+        return this.userRepository.save(this.getStoreData(request));
     }
 
-    public User store(UserRequestDto request) {
-        return this.userRepository.save(new User(
-                request.getName(),
-                passwordEncoder.encode(request.getPassword()),
-                request.getEmail(),
-                new Role(request.getRole())
-        ));
+    public User getStoreData(UserRequestDto request) {
+        return new User(
+            request.getName(),
+            passwordEncoder.encode(request.getPassword()),
+            request.getEmail(),
+            new Role(request.getRole())
+        );
     }
 
     @Override
-    public User update(UserRequestDto user, Long id) {
-        this.findById(id);
-        return this.store(user);
+    public User update(UserRequestDto request, Long id) {
+        User user = this.getStoreData(request);
+        user.setId(id);
+        return this.userRepository.save(user);
     }
 
     @Override
