@@ -13,7 +13,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    User save(UserRequestDto request);
+    User save(UserRequestDto request) throws Exception;
 
     User update(UserRequestDto user, Long id);
 

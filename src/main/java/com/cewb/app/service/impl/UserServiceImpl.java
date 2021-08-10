@@ -3,6 +3,7 @@ package com.cewb.app.service.impl;
 import com.cewb.app.config.ConfigRepository;
 import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.dto.response.ResponseMessage;
+import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
@@ -38,7 +39,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserRequestDto request) {
+    public User save(UserRequestDto request) throws Exception {
+        if(this.userRepository.existsByEmail(request.getEmail())) {
+            throw new ExceptionCatcher("Email address already exists");
+        }
+        return this.store(request);
+    }
+
+    public User store(UserRequestDto request) {
         return this.userRepository.save(new User(
                 request.getName(),
                 request.getEmail(),
@@ -50,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(UserRequestDto user, Long id) {
         this.findById(id);
-        return this.save(user);
+        return this.store(user);
     }
 
     @Override

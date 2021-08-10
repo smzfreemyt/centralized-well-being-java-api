@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody UserRequestDto request) {
+    public User create(@Valid @RequestBody UserRequestDto request) throws Exception {
         return this.userService.save(request);
     }
 
