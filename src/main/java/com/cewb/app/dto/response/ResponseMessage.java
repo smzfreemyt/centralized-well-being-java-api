@@ -18,7 +18,7 @@ public class ResponseMessage<M> {
     public ResponseMessage(Long id, String operation) {
         this.id = id;
         this.operation = operation;
-        this.message = String.format("Successfully %s ID # %s", this.getStringValue(), id);
+//        this.message = String.format("Successfully %s ID # %s", this.getStringValue(), id);
     }
 
     public String getStringValue() {

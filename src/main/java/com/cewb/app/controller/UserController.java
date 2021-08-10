@@ -1,7 +1,6 @@
 package com.cewb.app.controller;
 
 import com.cewb.app.dto.request.UserRequestDto;
-import com.cewb.app.dto.response.ResponseMessage;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")

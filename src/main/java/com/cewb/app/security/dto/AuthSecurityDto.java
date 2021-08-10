@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class AuthSecurityDto {
     private String email;
 
     @NotEmpty
-    @Min(value = 5, message = "Password must be at least 5 characters")
+    @Size(min = 5, message = "Password must be at least 5 characters")
     private String password;
 
     @NotEmpty
