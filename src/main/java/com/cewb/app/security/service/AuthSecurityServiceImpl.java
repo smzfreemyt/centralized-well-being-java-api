@@ -10,6 +10,12 @@ import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class AuthSecurityServiceImpl implements AuthSecurityService{
@@ -24,13 +30,19 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
     }
 
     @Override
+    @Transactional
     public User register(RegisterSecurityDto request) {
-        return this.userRepository.save(new User(
+        User user = new User(
                 request.getName(),
                 passwordEncoder.encode(request.getPassword()),
-                request.getEmail(),
-                new Role(Config.ROLE_USER))
-        );
+                request.getEmail());
+
+        Role role = new Role(Config.ROLE_USER_TEXT);
+        user.getRoles().add(role);
+
+        role.getUsers().add(user);
+
+        return this.userRepository.save(user);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class LoginController {
     @Autowired
     private AuthSecurityService authSecurityService;
 
-    @PostMapping("/api/admin/login")
+    @PostMapping("/api/login")
 
     public ResponseEntity<?> login(@Valid @RequestBody LoginSecurityDto loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
