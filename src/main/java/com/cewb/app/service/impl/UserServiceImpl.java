@@ -1,6 +1,7 @@
 package com.cewb.app.service.impl;
 
 import com.cewb.app.config.ConfigRepository;
+import com.cewb.app.config.ConfigRole;
 import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.dto.response.ResponseMessage;
 import com.cewb.app.exception.ExceptionCatcher;
@@ -47,12 +48,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getStoreData(UserRequestDto request) {
-        return new User(
-            request.getName(),
-            passwordEncoder.encode(request.getPassword()),
-            request.getEmail(),
-            new Role(request.getRole())
-        );
+        User user = new User(
+                request.getName(),
+                passwordEncoder.encode(request.getPassword()),
+                request.getEmail());
+        Role role = new Role(request.getRole());
+        user.getRoles().add(role);
+        role.getUsers().add(user);
+
+        return user;
     }
 
     @Override

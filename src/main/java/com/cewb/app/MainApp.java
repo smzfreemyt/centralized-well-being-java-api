@@ -1,13 +1,5 @@
 package com.cewb.app;
 
-<<<<<<< HEAD
-import com.cewb.app.config.Config;
-import com.cewb.app.controller.TestController;
-=======
-import com.cewb.app.dto.response.ResponseMessage;
->>>>>>> develop
-import com.cewb.app.model.Role;
-import com.cewb.app.model.User;
 import com.cewb.app.repository.RoleRepository;
 import com.cewb.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -34,19 +24,6 @@ public class MainApp implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		if(roleRepository.count() < 1) {
-//			Role admin = new Role();
-//			Role client = new Role();
-//			admin.setName("ADMIN");
-//			client.setName("USER");
-//			roleRepository.saveAll(Arrays.asList(admin, client));
-//		}
-
-//		System.out.println("Adding...");
-//		User user1 = new User("sam", "password", "email");
-//		Role role = new Role(Config.ROLE_USER_TEXT);
-//		user1.getRoles().add(role);
-//		role.getUsers().add(user1);
-//		this.userRepository.save(user1);
+		// preload here
 	}
 }

@@ -26,5 +26,5 @@ public class UserRequestDto {
     @Size(min = 5, message = "Password must be at least 5 characters.")
     private String password;
 
-    private Long role;
+    private String role;
 }

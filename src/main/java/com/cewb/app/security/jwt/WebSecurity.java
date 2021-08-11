@@ -1,7 +1,5 @@
-package com.cewb.app.security;
+package com.cewb.app.security.jwt;
 
-import com.cewb.app.security.jwt.JwtAuthEntryPoint;
-import com.cewb.app.security.jwt.JwtAuthTokenFilter;
 import com.cewb.app.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,7 +52,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().
+        http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/register").permitAll()
