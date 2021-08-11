@@ -30,8 +30,8 @@ public class LoginController {
     private AuthSecurityService authSecurityService;
 
     @PostMapping("/api/login")
-
     public ResponseEntity<?> login(@Valid @RequestBody LoginSecurityDto loginRequest) {
+        System.out.println("KINI - On going");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
@@ -39,6 +39,7 @@ public class LoginController {
                 )
         );
 
+        System.out.println("KINI Auth - " + authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
