@@ -5,11 +5,13 @@ import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.UserRepository;
 import com.cewb.app.security.dto.LoginSecurityDto;
+import com.cewb.app.security.dto.RegisterResponse;
 import com.cewb.app.security.dto.RegisterSecurityDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class AuthSecurityServiceImpl implements AuthSecurityService{
@@ -24,8 +26,7 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
     }
 
     @Override
-    @Transactional
-    public User register(RegisterSecurityDto request) throws Exception {
+    public RegisterResponse register(RegisterSecurityDto request) throws Exception {
         try {
             User user = new User(
                     request.getName(),
@@ -35,7 +36,7 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
             user.getRoles().add(role);
             role.getUsers().add(user);
             this.userRepository.save(user);
-            return user;
+            return new RegisterResponse(user.getId(), user.getEmail(), user.getName());
         } catch (Exception e) {
             throw new Exception("error", e);
         }

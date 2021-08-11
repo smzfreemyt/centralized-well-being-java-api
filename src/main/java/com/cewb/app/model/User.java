@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,12 @@ public class User{
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
+
+    @Column(name = "updated_at")
+    private Date updatedAt = new Date();
 
     @ManyToMany( targetEntity = Role.class, cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinTable(name="user_roles",
