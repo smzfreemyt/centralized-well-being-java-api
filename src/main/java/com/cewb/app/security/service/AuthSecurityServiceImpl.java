@@ -28,6 +28,9 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
 
     @Override
     public RegisterResponse register(RegisterSecurityDto request) throws Exception {
+        if(this.userRepository.existsByEmail(request.getEmail())) {
+            throw new ExceptionCatcher("Email address already exists");
+        }
         try {
             User user = new User(
                     request.getName(),
@@ -39,7 +42,7 @@ public class AuthSecurityServiceImpl implements AuthSecurityService{
             this.userRepository.save(user);
             return new RegisterResponse(user.getId(), user.getEmail(), user.getName());
         } catch (Exception e) {
-            throw new Exception("error", e);
+            throw new Exception("There is something wrong while signing up!");
         }
     }
 
