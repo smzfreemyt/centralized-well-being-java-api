@@ -16,7 +16,7 @@ public class RegisterController {
     private AuthSecurityService authSecurityService;
 
     @PostMapping("/register")
-    public User register(@Valid @RequestBody RegisterSecurityDto user){
+    public User register(@Valid @RequestBody RegisterSecurityDto user) throws Exception {
         return this.authSecurityService.register(user);
     }
 }

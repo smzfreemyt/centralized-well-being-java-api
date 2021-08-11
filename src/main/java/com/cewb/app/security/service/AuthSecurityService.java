@@ -6,7 +6,7 @@ import com.cewb.app.security.dto.RegisterSecurityDto;
 
 public interface AuthSecurityService {
 
-    User register(RegisterSecurityDto request);
+    User register(RegisterSecurityDto request) throws Exception;
 
     User login(LoginSecurityDto request);
 }

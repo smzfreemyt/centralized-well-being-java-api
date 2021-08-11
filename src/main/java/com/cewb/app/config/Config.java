@@ -2,10 +2,13 @@ package com.cewb.app.config;
 
 abstract public class Config {
 
-    public static Long ROLE_ADMIN = 1L;
-    public static Long ROLE_USER = 2L;
+    /**
+     * Roles
+     */
+    public final static String ROLE_ADMIN = "ADMIN";
 
+    public final static String ROLE_EDITOR = "USER";
 
-    public static String ROLE_ADMIN_TEXT = "ADMIN";
-    public static String ROLE_USER_TEXT = "USER";
+    public final static String ROLE_USER = "USER";
+
 }
