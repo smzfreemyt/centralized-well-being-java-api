@@ -25,4 +25,35 @@ public class Post {
     @CreatedDate
     private Date date_created;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
+    }
 }
