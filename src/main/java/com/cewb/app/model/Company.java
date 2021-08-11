@@ -45,6 +45,8 @@ public class Company {
 	@NotEmpty(message = "Logo link must not be empty")
 	private String logo;
 	
+	private String website;
+	
 	@CreatedDate
 	@Column(name = "created_at", updatable = false)
 	private Date createdAt;
