@@ -1,5 +1,6 @@
 package com.cewb.app.controller.auth;
 
+import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.User;
 import com.cewb.app.security.dto.RegisterResponse;
 import com.cewb.app.security.dto.RegisterSecurityDto;

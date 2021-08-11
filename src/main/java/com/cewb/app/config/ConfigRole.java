@@ -1,6 +1,6 @@
 package com.cewb.app.config;
 
-abstract public class Config {
+abstract public class ConfigRole {
 
     /**
      * Roles

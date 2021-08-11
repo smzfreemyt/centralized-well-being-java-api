@@ -1,7 +1,11 @@
 package com.cewb.app;
 
+<<<<<<< HEAD
 import com.cewb.app.config.Config;
 import com.cewb.app.controller.TestController;
+=======
+import com.cewb.app.dto.response.ResponseMessage;
+>>>>>>> develop
 import com.cewb.app.model.Role;
 import com.cewb.app.model.User;
 import com.cewb.app.repository.RoleRepository;
@@ -10,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class MainApp implements CommandLineRunner {
 
 	@Autowired

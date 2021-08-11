@@ -1,75 +1,44 @@
 package com.cewb.app.controller;
 
+import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.model.User;
-import com.cewb.app.repository.UserRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.cewb.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityExistsException;
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/api/users")
 public class UserController {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    @GetMapping
+    public Page<User> users(@RequestParam(value = "page", defaultValue = "0") int pageNum) {
+        return this.userService.findAll(pageNum);
     }
 
-    @GetMapping()
-    public String hello() {
-        return "Hello world!";
+    @PostMapping
+    public User create(@Valid @RequestBody UserRequestDto request) throws Exception {
+        return this.userService.save(request);
     }
 
-    @GetMapping("register")
-    public String register() {
-        return "Registration";
+    @GetMapping("/{id}")
+    public User item(@PathVariable Long id) {
+        return this.userService.findById(id);
     }
 
-/*    @PreAuthorize("isAnonymous() && #text.length() < 6")
-    @GetMapping("/message/{text}")
-    public String hello(@PathVariable String text) {
-        return "Hello anonymus user!";
+    @PutMapping("/{id}")
+    public User update(@Valid @RequestBody UserRequestDto request, @PathVariable("id") Long id) {
+        return this.userService.update(request, id);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/all")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        return this.userService.delete(id);
     }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    @PreAuthorize("isAuthenticated() && @securityAuthorizationService.isCurrentUser(#username)")
-    @GetMapping("/{username}")
-    public User getUser(@PathVariable String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityExistsException("User " + username + " doesn't exist in database"));
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/current")
-    public User getUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityExistsException("Wrong username " + username + " in SecurityContexHolder"));
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/token")
-    public String checkRefreshToken() {
-        return "Compare old and new token";
-    }
- */
 }
