@@ -30,6 +30,7 @@ public class MainApp implements CommandLineRunner {
 	@Autowired
 	private Environment env;
 
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
@@ -39,16 +40,18 @@ public class MainApp implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if (this.userRepository.count() < 1) {
-			String pass = env.getProperty("cewbs.admin.password");
-			User user = new User(
-					env.getProperty("cewbs.admin.name"),
-					passwordEncoder.encode(pass),
-					env.getProperty("cewbs.admin.email")
-			);
-			Role role = new Role(ConfigRole.ROLE_ADMIN);
-			user.getRoles().add(role);
-			role.getUsers().add(user);
-			this.userRepository.save(user);
+			try {
+				String name  = env.getProperty("cewbs.admin.name");
+				String email = env.getProperty("cewbs.admin.email");
+				String pass  = passwordEncoder.encode(env.getProperty("cewbs.admin.password"));
+				User user = new User(name,pass, email);
+				Role role = new Role(ConfigRole.ROLE_ADMIN);
+				user.getRoles().add(role);
+				role.getUsers().add(user);
+				this.userRepository.save(user);
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
 		}
 	}
 }
