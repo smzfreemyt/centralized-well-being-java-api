@@ -1,5 +1,6 @@
 package com.cewb.app.service.impl;
 
+import com.cewb.app.config.ConfigRepository;
 import com.cewb.app.model.Category;
 import com.cewb.app.repository.CategoryRepository;
 import com.cewb.app.service.CategoryService;
@@ -14,10 +15,11 @@ import javax.persistence.EntityNotFoundException;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
+    ConfigRepository configRepo;
 
     @Override
     public Page<Category> findAll(int pageNum) {
-        return categoryRepository.findAll(PageRequest.of(pageNum, 2));
+        return categoryRepository.findAll(PageRequest.of(pageNum, configRepo.PER_PAGE));
     }
 
     @Override
