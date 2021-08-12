@@ -16,7 +16,7 @@ public class JwtProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-    private final String jwtSecret = "jwt_secret_key";
+    private final String jwtSecret = "cewbsSecretKey$";
 
     private final int jwtExpiration = 120000;
 
