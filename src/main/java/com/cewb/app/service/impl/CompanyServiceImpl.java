@@ -19,7 +19,7 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public Page<Company> findAll(int pageNum) {
-		return companyRepository.findAll(PageRequest.of(pageNum, 2));
+		return companyRepository.findAll(PageRequest.of(pageNum, 10));
 	}
 
 	@Override

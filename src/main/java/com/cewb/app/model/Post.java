@@ -1,13 +1,15 @@
 package com.cewb.app.model;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "posts")
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
 	
 	@Id
@@ -23,6 +25,7 @@ public class Post {
     private String body;
     
     @CreatedDate
+    @Column(name = "created_at", updatable = false)
     private Date date_created;
 
     public Long getId() {

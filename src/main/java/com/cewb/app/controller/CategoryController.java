@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @Log4j2
 public class CategoryController {
     @Autowired
@@ -15,7 +16,7 @@ public class CategoryController {
 
     //Create category
     @PostMapping("/categories")
-    public Category createCategory(@RequestBody Category category) {
+    public Category createCategory(@RequestBody Category category) throws Exception {
         log.info("Create category endpoint");
         return categoryService.save(category);
     }
@@ -36,7 +37,7 @@ public class CategoryController {
 
     //Update category
     @PutMapping("/categories")
-    public Category updateCategory(@RequestBody Category category) {
+    public Category updateCategory(@RequestBody Category category) throws Exception {
         log.info("Update company with id " + category.getId());
         categoryService.save(category);
         return category;
