@@ -3,7 +3,7 @@ package com.cewb.app.config;
 import org.springframework.stereotype.Component;
 
 @Component("R")
-abstract public class ConfigRole {
+public class ConfigRole {
 
     /**
      * Roles
