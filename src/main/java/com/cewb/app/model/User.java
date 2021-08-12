@@ -1,5 +1,6 @@
 package com.cewb.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class User{
     @Column(name = "updated_at")
     private Date updatedAt = new Date();
 
+    @JsonIgnore
     @ManyToMany( targetEntity = Role.class, cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinTable(name="user_roles",
             joinColumns = {@JoinColumn(name="user_id", nullable = false)},
