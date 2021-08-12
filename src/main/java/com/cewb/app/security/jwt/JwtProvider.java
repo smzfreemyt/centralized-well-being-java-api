@@ -25,7 +25,7 @@ public class JwtProvider {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
         return Jwts.builder()
-		                .setSubject((userPrincipal.getUsername()))
+		                .setSubject((userPrincipal.getEmail()))
 		                .setIssuedAt(new Date())
 		                .setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
 		                .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -35,30 +35,31 @@ public class JwtProvider {
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            logger.info("Successful set signing key");
+            logger.info("THIS IS A VALID TOKEN.");
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature : " + e.getMessage());
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token -> Message: {}", e);
+            logger.error("Invalid JWT token : " + e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("Expired JWT token Message: {}", e.getMessage());
+            logger.error("JWT token is Expired: " + e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("Unsupported JWT token -> Message: {}", e);
+            logger.error("Unsupported token: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty -> Message: {}", e);
+            logger.error("Claims is empty: " + e.getMessage());
         }
         
         return false;
     }
-    
+
+    /**
+     * Test token in https://jwt.io/#encoded-jwt if sub exists
+     */
     public String getUserNameFromJwtToken(String token) {
-        Claims claims =  Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
-                .getBody();
-
-        logger.error("CLAIMS: " + claims.toString());
-        return null;
+                .getBody()
+                .getSubject();
     }
 }

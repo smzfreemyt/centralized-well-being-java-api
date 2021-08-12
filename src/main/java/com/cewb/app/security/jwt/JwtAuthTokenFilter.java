@@ -33,11 +33,9 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     								FilterChain filterChain) 
     										throws ServletException, IOException {
         try {
-        	
             String jwt = getJwt(request);
             if (jwt!=null && tokenProvider.validateJwtToken(jwt)) {
-                String username = "admin@admin.com"; // tokenProvider.getUserNameFromJwtToken(jwt);
-
+                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authentication
@@ -47,7 +45,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Error: " + e.getMessage());
+            logger.error("This request needs Authorization. Check Authorization Bearer {token}");
         }
 
         filterChain.doFilter(request, response);
