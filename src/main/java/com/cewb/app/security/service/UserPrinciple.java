@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.ToString;
+
+@ToString
 public class UserPrinciple implements UserDetails {
 	private static final long serialVersionUID = 1L;
 

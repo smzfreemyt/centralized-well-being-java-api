@@ -2,6 +2,11 @@ package com.cewb.app.utility;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.cewb.app.security.service.UserPrinciple;
+
 public class AppUtility {
 	
 	/**
@@ -37,4 +42,11 @@ public class AppUtility {
     }
     
     // Add security helpers here once security dependencies are added
+    public static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+    
+    public static Long getAuthenticatedUserId() {
+    	return ((UserPrinciple)getAuthentication().getPrincipal()).getId();
+    }
 }

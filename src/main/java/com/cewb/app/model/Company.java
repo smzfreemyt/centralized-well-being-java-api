@@ -11,11 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -55,4 +58,10 @@ public class Company {
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Service> services;
 	
+	@JsonIgnore
+	@CreatedBy
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class, 
+		cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name = "created_by")
+	private User user;
 }

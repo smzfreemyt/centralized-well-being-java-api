@@ -19,7 +19,7 @@ import com.cewb.app.service.ServiceService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/companies/{companyId}")
+@RequestMapping("/api/companies/{companyId}")
 @CrossOrigin
 @Log4j2
 public class ServiceController {

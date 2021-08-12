@@ -12,6 +12,7 @@ import com.cewb.app.repository.ServiceRepository;
 import com.cewb.app.service.CompanyService;
 import com.cewb.app.service.ServiceService;
 import com.cewb.app.utility.AppUtility;
+import com.cewb.app.config.ConfigRepository;
 import com.cewb.app.model.Company;
 import com.cewb.app.model.Service;
 
@@ -26,7 +27,7 @@ public class ServiceServiceImpl implements ServiceService {
 	@Override
 	public Page<Service> findAll(Long companyId, int pageNum) {
 		companyService.findById(companyId);
-		return serviceRepository.findByCompanyId(companyId, PageRequest.of(pageNum, 2));
+		return serviceRepository.findByCompanyId(companyId, PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
 	}
 	
 	@Override
