@@ -1,6 +1,7 @@
 package com.cewb.app.service.impl;
 
 import com.cewb.app.config.ConfigRepository;
+import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.Category;
 import com.cewb.app.repository.CategoryRepository;
 import com.cewb.app.service.CategoryService;
@@ -29,7 +30,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) {
+    public Category save(Category category) throws Exception {
+        if(this.categoryRepository.existsByName(category.getName())) {
+            throw new ExceptionCatcher("Category name already exists");
+        }
         return categoryRepository.save(category);
     }
 
