@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
 public class RegisterController {
 
     @Autowired
     private AuthSecurityService authSecurityService;
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public RegisterResponse register(@Valid @RequestBody RegisterSecurityDto user) throws Exception {
         return this.authSecurityService.register(user);
     }

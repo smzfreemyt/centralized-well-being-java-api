@@ -1,17 +1,21 @@
 package com.cewb.app.controller;
 
+import com.cewb.app.config.ConfigRole;
 import com.cewb.app.dto.request.UserRequestDto;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class UserController {
 
     @Autowired
@@ -42,3 +46,4 @@ public class UserController {
         return this.userService.delete(id);
     }
 }
+

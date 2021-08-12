@@ -29,6 +29,9 @@ public class LoginController {
     @Autowired
     private AuthSecurityService authSecurityService;
 
+    /**
+     * Login using EMAIL & PASSWORD
+     */
     @PostMapping("/api/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginSecurityDto loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
