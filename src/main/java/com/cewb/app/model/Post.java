@@ -26,10 +26,15 @@ public class Post {
     @NotEmpty(message = "Body must not be empty")
     private String body;
 
-    @Transient
-    @Column(name = "category_id")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class,
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "category_id")
     @NotNull(message = "Category id must not be empty")
-    private int category_id;
+    private Category category;
+
+    @Transient
+    @NotNull(message = "Category id must not be empty")
+    private long category_id;
 
     @CreatedBy
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,
@@ -74,11 +79,19 @@ public class Post {
         this.date_created = date_created;
     }
 
-    public int getCategory_id() {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public long getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(int category_id) {
+    public void setCategory_id(long category_id) {
         this.category_id = category_id;
     }
 }

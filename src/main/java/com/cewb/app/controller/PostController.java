@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class PostController {
@@ -51,5 +53,12 @@ public class PostController {
 	public Post deletePost(@PathVariable Long id) {
 		log.info("Delete post with id " + id);
 		return postService.delete(id);
+	}
+
+	//get by category
+	@GetMapping("/posts/category/{categoryId}")
+	public List<Post> getPost(@PathVariable(name = "categoryId") Long categoryId) {
+		log.info("Get post endpoint");
+		return postService.findByCategory(categoryId);
 	}
 }
