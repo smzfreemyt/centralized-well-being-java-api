@@ -54,8 +54,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/register").permitAll()
-                .antMatchers("/categories").permitAll()
-                .antMatchers("/posts").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
