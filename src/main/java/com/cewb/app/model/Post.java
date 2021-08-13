@@ -1,10 +1,12 @@
 package com.cewb.app.model;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -23,7 +25,19 @@ public class Post {
     @Column(name = "body")
     @NotEmpty(message = "Body must not be empty")
     private String body;
-    
+
+    @Transient
+    @Column(name = "category_id")
+    @NotNull(message = "Category id must not be empty")
+    private int category_id;
+
+    @CreatedBy
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "created_by")
+    @NotNull(message = "User id must not be empty")
+    private User user;
+
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private Date date_created;
@@ -58,5 +72,13 @@ public class Post {
 
     public void setDate_created(Date date_created) {
         this.date_created = date_created;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 }
