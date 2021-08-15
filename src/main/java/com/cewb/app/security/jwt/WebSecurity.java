@@ -4,6 +4,7 @@ import com.cewb.app.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -53,6 +54,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/admin/login").permitAll()
                 .antMatchers("/api/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
