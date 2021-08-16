@@ -33,6 +33,11 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Cant find company with id - " + id));
 	}
+	
+	@Override
+	public Page<Company> findByKeyword(int pageNum, String keyword) {
+		return companyRepository.findByNameLike(AppUtility.getSqlKeyword(keyword), PageRequest.of(pageNum, 10));
+	}
 
 	@Override
 	public Company save(Company company) {
@@ -52,5 +57,6 @@ public class CompanyServiceImpl implements CompanyService {
 		companyRepository.delete(company);
 		return company;
 	}
+
 	
 }
