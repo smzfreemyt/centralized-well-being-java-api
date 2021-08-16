@@ -2,6 +2,8 @@ package com.cewb.app.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +22,7 @@ public class Role {
 
 	private String name;
 
+	@JsonIgnore
 	@ManyToMany(targetEntity = User.class, mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<User> users = new HashSet<>();
 
