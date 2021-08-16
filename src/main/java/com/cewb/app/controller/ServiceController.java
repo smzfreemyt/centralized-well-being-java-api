@@ -41,6 +41,13 @@ public class ServiceController {
 		return serviceService.findAll(companyId, pageNum);
 	}
 	
+	//Read services
+	@GetMapping("/services/search")
+	public Page<Service> searchServices(@RequestParam(value = "page", defaultValue = "0") int pageNum, @PathVariable(name = "companyId") Long companyId, @RequestParam(defaultValue = "", value = "search") String search) {
+		log.info("Read services page - " + pageNum);
+		return serviceService.findByKeyword(companyId, pageNum, search);
+	}
+	
 	//Read service
 	@GetMapping("/services/{serviceId}")
 	public Service readService( @PathVariable(name = "companyId") Long companyId,  @PathVariable(name = "serviceId") Long serviceId) {

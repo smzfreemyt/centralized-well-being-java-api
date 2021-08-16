@@ -8,6 +8,8 @@ public interface ServiceService {
 	
 	Page<Service> findAll(Long companyId, int pageNum);
 	
+	Page<Service> findByKeyword(Long companyId, int pageNum, String keyword);
+	
 	Service findById(Long companyId, Long serviceId);
 	
 	Service save(Long companyId, Service company);
