@@ -52,7 +52,7 @@ public class LoginController {
      * Only admin can log in
      */
     @PostMapping("/api/admin/login")
-    @PostAuthorize("hasAnyAuthority('ADMIN','EDITOR')")
+    @PostAuthorize("hasAnyAuthority({@R.ROLE_ADMIN,@R.ROLE_EDITOR})")
     public ResponseEntity<?> adminLogin(@Valid @RequestBody LoginSecurityDto loginRequest) {
         log.info("Login as ADMIN role");
         return this.doLogin(loginRequest);

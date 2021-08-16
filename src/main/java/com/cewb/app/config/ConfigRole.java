@@ -10,7 +10,7 @@ public class ConfigRole {
      */
     public final static String ROLE_ADMIN = "ADMIN";
 
-    public final static String ROLE_EDITOR = "USER";
+    public final static String ROLE_EDITOR = "EDITOR";
 
     public final static String ROLE_USER = "USER";
 
