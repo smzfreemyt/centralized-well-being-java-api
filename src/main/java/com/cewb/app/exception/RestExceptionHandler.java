@@ -1,13 +1,16 @@
 package com.cewb.app.exception;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,7 +21,12 @@ import com.cewb.app.utility.AppUtility;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
-	
+
+	@ExceptionHandler(value = AccessDeniedException.class)
+	public void handleConflict(HttpServletResponse response) throws IOException {
+		response.sendError(403, "You do not have permission to do the action.");
+	}
+
 	@ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(EntityNotFoundException ex) {
         // Create RestErrorResponse
