@@ -1,14 +1,7 @@
 package com.cewb.app.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,21 +19,10 @@ import com.cewb.app.config.RequestStatus;
 import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.service.HRRequestService;
-import com.cewb.app.utility.AppUtility;
 
 import lombok.extern.log4j.Log4j2;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -88,32 +70,8 @@ public class HRRequestReportsController {
 	@PostMapping("/reports/generate")
 	public ResponseEntity<byte[]> generateReport(@RequestBody HrRequestDto hrRequest) throws JRException, IOException, URISyntaxException {
 		log.info("Reports generation endpoint");
-		try (InputStream in = getClass().getResourceAsStream("/reports/HRRequestReport.jrxml")) {
-		    JasperReport jasperReport = JasperCompileManager.compileReport(in);
-		    Map<String,Object> params = new HashMap<>();
-		    
-		    JRBeanCollectionDataSource dataSource  = new JRBeanCollectionDataSource(requestService.findByFilter(hrRequest), false);
-		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, initializeParams(params, hrRequest), dataSource);
-            
-		    byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
-		    byte[] b64 = Base64.getEncoder().encode(pdfBytes);
-            return new ResponseEntity<byte[]>(b64, HttpStatus.OK);
-		}
+		byte[] pdf = requestService.generateReport(hrRequest);
+		return new ResponseEntity<byte[]>(pdf, HttpStatus.OK);
 	}
 
-	private Map<String, Object> initializeParams(Map<String,Object> params, HrRequestDto hrRequest) throws URISyntaxException {
-		File file = Paths.get(getClass().getClassLoader().getResource("reports/logo.png").toURI()).toFile();
-		if(file.exists()) {
-			params.put("companyLogo", file.getAbsolutePath());			
-		} 
-		params.put("dateFrom", hrRequest.getStartDate());
-		params.put("dateTo", hrRequest.getEndDate());
-		params.put("classification", hrRequest.getClassification());
-		params.put("department", hrRequest.getDepartment());
-		params.put("status", hrRequest.getStatus());
-		params.put("type", hrRequest.getType());
-		return params;
-	}
-	
-	
 }

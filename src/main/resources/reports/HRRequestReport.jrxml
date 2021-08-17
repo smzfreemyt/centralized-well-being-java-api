@@ -79,20 +79,20 @@ from hr_request]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="130" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<image hAlign="Center">
-				<reportElement x="0" y="0" width="839" height="87" uuid="5f78243a-5235-442b-bf72-a74f98fc45cf"/>
+				<reportElement x="0" y="0" width="839" height="50" uuid="5f78243a-5235-442b-bf72-a74f98fc45cf"/>
 				<imageExpression><![CDATA[$P{companyLogo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="0" y="87" width="838" height="23" uuid="0cce8d2b-d93e-4c95-9b08-645b8e0b4173"/>
+				<reportElement x="0" y="50" width="838" height="23" uuid="0cce8d2b-d93e-4c95-9b08-645b8e0b4173"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Human Resource Report]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight" pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement x="0" y="110" width="838" height="20" uuid="60b53b22-9e93-42c7-8df3-723bb8fec4ed"/>
+				<reportElement x="0" y="73" width="838" height="20" uuid="60b53b22-9e93-42c7-8df3-723bb8fec4ed"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
