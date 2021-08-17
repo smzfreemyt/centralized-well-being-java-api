@@ -1,5 +1,7 @@
 package com.cewb.app.service.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
@@ -20,6 +23,11 @@ public class HRRequestServiceImpl implements HRRequestService {
 	@Override
 	public Page<HRRequest> findAll(int pageNum) {
 		return requestRepository.findAll(PageRequest.of(pageNum, 2));
+	}
+	
+	@Override
+	public List<HRRequest> findByFilter(HrRequestDto hrRequest) {
+		return requestRepository.findByFilter();
 	}
 	
 	@Override
@@ -49,4 +57,5 @@ public class HRRequestServiceImpl implements HRRequestService {
 		requestRepository.delete(request);
 		return request;
 	}
+
 }
