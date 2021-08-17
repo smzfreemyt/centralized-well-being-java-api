@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,6 +31,9 @@ import java.util.List;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
@@ -75,18 +79,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                return new CorsConfiguration().applyPermitDefaultValues();
+                CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+                config.setAllowedOrigins(Arrays.asList(env.getProperty("client.domain.url")));
+                config.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
+                return config;
             }
         });
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
 }
