@@ -62,6 +62,6 @@ public class Company {
 	@CreatedBy
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class, 
 		cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name = "created_by")
+	@JoinColumn(name = "created_by", updatable = false)
 	private User user;
 }

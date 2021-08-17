@@ -1,7 +1,13 @@
 package com.cewb.app.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +22,13 @@ import com.cewb.app.model.HRRequest;
 import com.cewb.app.service.HRRequestService;
 
 import lombok.extern.log4j.Log4j2;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/api")
@@ -54,8 +67,17 @@ public class HRRequestReportsController {
 	}
 	
 	@GetMapping("/reports/generate")
-	public ResponseEntity<byte[]> generateReport() {
-		return null;
+	public ResponseEntity<byte[]> generateReport() throws JRException, IOException {
+		try (InputStream in = getClass().getResourceAsStream("/reports/HRRequestReport.jrxml")) {
+		    JasperReport jasperReport = JasperCompileManager.compileReport(in);
+		    Map<String,Object> params = new HashMap<>();
+		    
+		    JRBeanCollectionDataSource dataSource  = new JRBeanCollectionDataSource(requestService.findAll(0).getContent(), false);
+		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            return new ResponseEntity<byte[]>(pdfBytes, HttpStatus.OK);
+		}
 	}
 	
 	
