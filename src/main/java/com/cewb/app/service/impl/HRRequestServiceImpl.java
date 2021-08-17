@@ -1,33 +1,17 @@
 package com.cewb.app.service.impl;
-
-<<<<<<< HEAD
 import com.cewb.app.config.ConfigRepository;
+import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
-=======
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-
->>>>>>> 08990fb8b9cf567a034a0620dd3296c5460574e7
+import com.cewb.app.utility.AppUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import javax.persistence.EntityNotFoundException;
-=======
-import com.cewb.app.dto.request.HrRequestDto;
-import com.cewb.app.model.HRRequest;
-import com.cewb.app.repository.HRRequestRepository;
-import com.cewb.app.service.HRRequestService;
-<<<<<<< HEAD
->>>>>>> 08990fb8b9cf567a034a0620dd3296c5460574e7
-=======
-import com.cewb.app.utility.AppUtility;
->>>>>>> 6a12f16bb5a3dc46648f63097cd42c8dac3b0d64
+import java.util.List;
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
