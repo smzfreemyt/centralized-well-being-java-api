@@ -1,6 +1,29 @@
 package com.cewb.app.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.cewb.app.config.RequestStatus;
+import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.service.HRRequestService;
 import lombok.extern.log4j.Log4j2;
@@ -60,18 +83,32 @@ public class HRRequestReportsController {
 		return requestService.delete(id);
 	}
 	
-	@GetMapping("/reports/generate")
-	public ResponseEntity<byte[]> generateReport() throws JRException, IOException {
+	@PostMapping("/reports/generate")
+	public ResponseEntity<byte[]> generateReport(@RequestBody HrRequestDto hrRequest) throws JRException, IOException, URISyntaxException {
 		try (InputStream in = getClass().getResourceAsStream("/reports/HRRequestReport.jrxml")) {
 		    JasperReport jasperReport = JasperCompileManager.compileReport(in);
 		    Map<String,Object> params = new HashMap<>();
 		    
-		    JRBeanCollectionDataSource dataSource  = new JRBeanCollectionDataSource(requestService.findAll(0).getContent(), false);
-		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+		    
+		    JRBeanCollectionDataSource dataSource  = new JRBeanCollectionDataSource(requestService.findByFilter(hrRequest), false);
+		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, initializeParams(params, hrRequest), dataSource);
+            
+		    //For debugging purpose only
+		    String path = "E://demoReportOutput.pdf";
+            JasperExportManager.exportReportToPdfFile(jasperPrint,path);
+		    
+		    byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
             return new ResponseEntity<byte[]>(pdfBytes, HttpStatus.OK);
 		}
+	}
+	
+	private Map<String, Object> initializeParams(Map<String,Object> params, HrRequestDto hrRequest) throws URISyntaxException {
+		File file = Paths.get(getClass().getClassLoader().getResource("reports/logo.png").toURI()).toFile();
+		if(file.exists()) {
+			params.put("companyLogo", file.getAbsolutePath());			
+		}
+		return params;
 	}
 	
 	

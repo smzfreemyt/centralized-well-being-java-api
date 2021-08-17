@@ -1,15 +1,29 @@
 package com.cewb.app.service.impl;
 
+<<<<<<< HEAD
 import com.cewb.app.config.ConfigRepository;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
+=======
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
+>>>>>>> 08990fb8b9cf567a034a0620dd3296c5460574e7
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import javax.persistence.EntityNotFoundException;
+=======
+import com.cewb.app.dto.request.HrRequestDto;
+import com.cewb.app.model.HRRequest;
+import com.cewb.app.repository.HRRequestRepository;
+import com.cewb.app.service.HRRequestService;
+>>>>>>> 08990fb8b9cf567a034a0620dd3296c5460574e7
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
@@ -22,6 +36,11 @@ public class HRRequestServiceImpl implements HRRequestService {
 		return requestRepository.findAll(PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
 	}
 
+	@Override
+	public List<HRRequest> findByFilter(HrRequestDto hrRequest) {
+		return requestRepository.findByFilter();
+	}
+	
 	@Override
 	public HRRequest findById(Long id) {
 		HRRequest result = requestRepository.findById(id)
@@ -49,4 +68,5 @@ public class HRRequestServiceImpl implements HRRequestService {
 		requestRepository.delete(request);
 		return request;
 	}
+
 }
