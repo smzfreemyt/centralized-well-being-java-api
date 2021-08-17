@@ -13,6 +13,7 @@ import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
+import com.cewb.app.utility.AppUtility;
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
@@ -27,7 +28,13 @@ public class HRRequestServiceImpl implements HRRequestService {
 	
 	@Override
 	public List<HRRequest> findByFilter(HrRequestDto hrRequest) {
-		return requestRepository.findByFilter();
+		return requestRepository.findByFilter(
+				hrRequest.getStartDate(),
+				hrRequest.getEndDate(),
+				AppUtility.getSqlKeyword(hrRequest.getDepartment()),
+				AppUtility.getSqlKeyword(hrRequest.getClassification()),
+				AppUtility.getSqlKeyword(hrRequest.getStatus())
+			);
 	}
 	
 	@Override
