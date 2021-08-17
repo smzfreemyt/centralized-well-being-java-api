@@ -1,34 +1,21 @@
 package com.cewb.app.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.cewb.app.config.RequestStatus;
+import com.cewb.app.model.HRRequest;
+import com.cewb.app.service.HRRequestService;
+import lombok.extern.log4j.Log4j2;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.cewb.app.config.RequestStatus;
-import com.cewb.app.model.HRRequest;
-import com.cewb.app.service.HRRequestService;
-
-import lombok.extern.log4j.Log4j2;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -64,6 +51,13 @@ public class HRRequestReportsController {
 		item.setStatus(request.getStatus());
 		
 		return requestService.update(item);
+	}
+
+	//Delete request
+	@DeleteMapping("/reports/{id}")
+	public HRRequest deleteCompany(@PathVariable Long id) {
+		log.info("Delete request with id " + id);
+		return requestService.delete(id);
 	}
 	
 	@GetMapping("/reports/generate")

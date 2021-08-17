@@ -17,11 +17,10 @@ import javax.persistence.EntityNotFoundException;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
-    ConfigRepository configRepo;
 
     @Override
     public Page<Category> findAll(int pageNum) {
-        return categoryRepository.findAll(PageRequest.of(pageNum, configRepo.PER_PAGE));
+        return categoryRepository.findAll(PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
     }
 
     @Override

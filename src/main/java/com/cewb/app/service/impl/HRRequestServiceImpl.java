@@ -1,15 +1,15 @@
 package com.cewb.app.service.impl;
 
-import javax.persistence.EntityNotFoundException;
-
+import com.cewb.app.config.ConfigRepository;
+import com.cewb.app.model.HRRequest;
+import com.cewb.app.repository.HRRequestRepository;
+import com.cewb.app.service.HRRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.cewb.app.model.HRRequest;
-import com.cewb.app.repository.HRRequestRepository;
-import com.cewb.app.service.HRRequestService;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
@@ -19,9 +19,9 @@ public class HRRequestServiceImpl implements HRRequestService {
 
 	@Override
 	public Page<HRRequest> findAll(int pageNum) {
-		return requestRepository.findAll(PageRequest.of(pageNum, 2));
+		return requestRepository.findAll(PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
 	}
-	
+
 	@Override
 	public HRRequest findById(Long id) {
 		HRRequest result = requestRepository.findById(id)
