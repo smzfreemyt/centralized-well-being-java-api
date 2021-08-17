@@ -29,6 +29,12 @@ public class CategoryController {
         return categoryService.findAll(pageNum);
     }
 
+    @GetMapping("/categories/search")
+    public Page<Category> readCategoriesInPage(@RequestParam(value = "page", defaultValue = "0") int pageNum, @RequestParam(defaultValue = "", value = "search") String search) {
+        log.info("search categories page - " + pageNum);
+        return categoryService.findByKeyword(pageNum, search);
+    }
+
     //View category
     @GetMapping("/categories/{id}")
     public Category readCategory(@PathVariable Long id) {

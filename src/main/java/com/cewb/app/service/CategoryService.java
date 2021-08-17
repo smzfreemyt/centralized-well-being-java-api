@@ -7,6 +7,8 @@ public interface CategoryService {
 
     Page<Category> findAll(int pageNum);
 
+    Page<Category> findByKeyword(int pageNum, String keyword);
+
     Category findById(Long id);
 
     Category save(Category category) throws Exception;

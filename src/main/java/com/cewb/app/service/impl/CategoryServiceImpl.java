@@ -5,6 +5,7 @@ import com.cewb.app.exception.ExceptionCatcher;
 import com.cewb.app.model.Category;
 import com.cewb.app.repository.CategoryRepository;
 import com.cewb.app.service.CategoryService;
+import com.cewb.app.utility.AppUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ExceptionCatcher("Category name already exists");
         }
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Page<Category> findByKeyword(int pageNum, String keyword) {
+        return categoryRepository.findByNameLike(AppUtility.getSqlKeyword(keyword), PageRequest.of(pageNum, 10));
     }
 
     @Override
