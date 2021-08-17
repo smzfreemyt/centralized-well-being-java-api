@@ -1,7 +1,6 @@
 package com.cewb.app.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,10 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,44 +21,68 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "companies")
-@Getter
-@Setter
+@Table(name = "hr_request")
+@Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Company {
+public class HRRequest {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message = "Name must not be empty")
-	@Size(min = 3, max = 50, message = "Name length must be between 3 and 50")
-	private String name;
+	@NotEmpty(message = "Email is required")
+	private String email;
 	
-	@Column(name = "logo_link")
-	@NotEmpty(message = "Logo link must not be empty")
-	private String logo;
+	@NotEmpty(message = "Requestor is required")
+	private String requestor;
 	
-	private String website;
+	@NotEmpty(message = "Department is required")
+	private String department;	
+		
+	@NotEmpty(message = "Request classification is required")
+	private String classification;
+	
+	@NotEmpty(message = "Request type is required")
+	private String type;
+	
+	@NotEmpty(message = "Purpose of Request is required")
+	private String purpose;
+	
+	@NotEmpty(message = "Request Details is required")
+	private String details;
+	
+	@Column(name = "coa_emp_name")
+	private String coaEmpName;
+	
+	@Column(name = "coa_current_approver")
+	private String coaCurrentApprover;
+	
+	@Column(name = "coa_project_name")
+	private String coaProjectName;
+	
+	@Column(name = "coa_new_approver_approver")
+	private String coaNewApproverApprover;
+		
+	@Column(name = "status")
+	private String status;
+	
+	@Column(name = "coa_effective_date")
+	private Date coaEffectiveDate;
 	
 	@CreatedDate
 	@Column(name = "created_at", updatable = false)
 	private Date createdAt;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Service> services;
-	
-	@JsonIgnore
 	@CreatedBy
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class, 
 		cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name = "created_by", updatable = false)
+	@JoinColumn(name = "created_by")
 	private User user;
+	
 }
