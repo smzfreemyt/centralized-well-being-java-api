@@ -15,14 +15,14 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UserRequestDto {
 
-    @NotEmpty
+    @NotEmpty(message = "Name must not be empty")
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "Email address must not be empty")
     @Email(message = "Email address must be a valid email.")
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "Password must not be empty")
     @Size(min = 5, message = "Password must be at least 5 characters.")
     private String password;
 
