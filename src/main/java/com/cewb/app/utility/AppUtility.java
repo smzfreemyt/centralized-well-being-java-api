@@ -19,6 +19,15 @@ public class AppUtility {
     }
     
     /**
+     * Checks if the given string is blank
+     * @param str
+     * @return
+     */
+    public static boolean isBlank(String str) {
+    	return (str == "");
+    }
+    
+    /**
      * Concatenates the given array of String with a delimiter
      * @param stringList
      * @param delimiter

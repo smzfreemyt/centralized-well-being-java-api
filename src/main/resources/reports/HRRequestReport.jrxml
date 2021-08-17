@@ -4,6 +4,12 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql adapter"/>
 	<parameter name="companyLogo" class="java.lang.String"/>
+	<parameter name="dateFrom" class="java.util.Date"/>
+	<parameter name="dateTo" class="java.util.Date"/>
+	<parameter name="department" class="java.lang.String"/>
+	<parameter name="classification" class="java.lang.String"/>
+	<parameter name="type" class="java.lang.String"/>
+	<parameter name="status" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select id, email, requestor, department, classification, 
 type, purpose, details, created_at, status 
@@ -230,9 +236,9 @@ from hr_request]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{COLUMN_COUNT} + 1]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
 				<reportElement stretchType="ElementGroupHeight" x="22" y="0" width="58" height="15" uuid="ded5b843-58a3-465e-a348-c0b98dc7ddea">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -244,7 +250,7 @@ from hr_request]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{createdAt}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement stretchType="ElementGroupHeight" x="80" y="0" width="80" height="15" uuid="30162a1d-fdbf-4f91-8ad7-5060438d20ab">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -268,7 +274,7 @@ from hr_request]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{requestor}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ElementGroupHeight" x="254" y="0" width="74" height="15" uuid="e6eda274-1e3e-47de-b57e-9a41823f663b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -280,7 +286,7 @@ from hr_request]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ElementGroupHeight" x="328" y="0" width="74" height="15" uuid="2c0dc95b-cae4-4cd6-a903-dfbab811d701">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -292,7 +298,7 @@ from hr_request]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{classification}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ElementGroupHeight" x="402" y="0" width="108" height="15" uuid="6421a0b8-3303-4b43-a361-7e7316bf2038">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -343,12 +349,111 @@ from hr_request]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="45" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="69" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="20" width="59" height="13" uuid="34aae40e-6298-4c1b-a2e1-26a1503ba2b0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date From: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="33" width="59" height="13" uuid="ab16c187-f5b6-4d38-a183-acb64cf91610">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date To: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="46" width="59" height="13" uuid="fbc73c76-5f3c-476c-9198-f74c625d32c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Department: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="59" width="59" height="13" uuid="8dc3a039-b59f-4c1e-903e-cdfef1ede4ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Classification: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="20" width="39" height="13" uuid="b7fe8194-9694-41d8-805d-3b9890a4e0a7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Type: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="33" width="39" height="13" uuid="fdba7e80-d7be-47d4-8111-7294375be0a2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Status: ]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement x="60" y="20" width="180" height="13" uuid="78755631-c613-45fb-a10c-44981bc9338a"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateFrom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement x="60" y="33" width="180" height="13" uuid="3b3d952c-5df6-4850-89ae-f844cff5c707"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateTo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="46" width="180" height="13" uuid="12a52f65-c2a0-454c-909a-ce25190c1f54"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{department}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="59" width="180" height="13" uuid="5cd27fda-7b9d-4426-a0bb-b347ca88c0e1"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{classification}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="279" y="20" width="180" height="13" uuid="a3d2d6dd-1f8f-423f-8282-eec64963b337"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="279" y="33" width="180" height="13" uuid="af092aa6-7b68-45f8-82ca-8262c193bcee"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{status}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

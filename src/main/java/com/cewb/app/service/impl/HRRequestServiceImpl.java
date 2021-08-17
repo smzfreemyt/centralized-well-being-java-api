@@ -23,7 +23,11 @@ import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
+<<<<<<< HEAD
 >>>>>>> 08990fb8b9cf567a034a0620dd3296c5460574e7
+=======
+import com.cewb.app.utility.AppUtility;
+>>>>>>> 6a12f16bb5a3dc46648f63097cd42c8dac3b0d64
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
@@ -38,7 +42,13 @@ public class HRRequestServiceImpl implements HRRequestService {
 
 	@Override
 	public List<HRRequest> findByFilter(HrRequestDto hrRequest) {
-		return requestRepository.findByFilter();
+		return requestRepository.findByFilter(
+				hrRequest.getStartDate(),
+				hrRequest.getEndDate(),
+				AppUtility.getSqlKeyword(hrRequest.getDepartment()),
+				AppUtility.getSqlKeyword(hrRequest.getClassification()),
+				AppUtility.getSqlKeyword(hrRequest.getStatus())
+			);
 	}
 	
 	@Override
