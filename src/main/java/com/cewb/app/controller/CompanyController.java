@@ -41,6 +41,13 @@ public class CompanyController {
 		return companyService.findAll(pageNum);
 	}
 	
+	//Search company 
+	@GetMapping("/companies/search")
+	public Page<Company> readCompaniesByKeyword(@RequestParam(value = "page", defaultValue = "0") int pageNum,@RequestParam(defaultValue = "", value = "search") String search) {
+		log.info("search companies page - " + pageNum);
+		return companyService.findByKeyword(pageNum, search);
+	}
+	
 	//Read company
 	@GetMapping("/companies/{id}")
 	public Company readCompany(@PathVariable Long id) {

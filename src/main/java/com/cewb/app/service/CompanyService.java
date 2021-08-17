@@ -8,6 +8,8 @@ public interface CompanyService {
 	
 	Page<Company> findAll(int pageNum);
 	
+	Page<Company> findByKeyword(int pageNum, String keyword);
+	
 	Company findById(Long id);
 	
 	Company save(Company company);

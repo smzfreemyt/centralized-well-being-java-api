@@ -29,6 +29,12 @@ public class ServiceServiceImpl implements ServiceService {
 		companyService.findById(companyId);
 		return serviceRepository.findByCompanyId(companyId, PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
 	}
+
+	@Override
+	public Page<Service> findByKeyword(Long companyId, int pageNum, String keyword) {
+		companyService.findById(companyId);
+		return serviceRepository.searchByCompanyId(companyId, AppUtility.getSqlKeyword(keyword),PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
+	}
 	
 	@Override
 	public Service findById(Long companyId, Long serviceId) {
@@ -40,6 +46,7 @@ public class ServiceServiceImpl implements ServiceService {
 
 		return service;
 	}
+	
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)

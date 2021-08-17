@@ -41,6 +41,12 @@ public class AppUtility {
         return sb.substring(0, sb.length() - delimiter.length());        
     }
     
+    public static String getSqlKeyword(String word) {
+    	if(word == null)
+    		return "%%";
+    	return "%"+word+"%";
+    }
+    
     // Add security helpers here once security dependencies are added
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();

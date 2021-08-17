@@ -4,6 +4,8 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -35,7 +37,8 @@ public class Post {
     @Transient
     @NotNull(message = "Category id must not be empty")
     private long category_id;
-
+    
+    @JsonIgnore
     @CreatedBy
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
