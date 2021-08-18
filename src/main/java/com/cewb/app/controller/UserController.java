@@ -2,6 +2,7 @@ package com.cewb.app.controller;
 
 import com.cewb.app.config.ConfigRole;
 import com.cewb.app.dto.request.UserRequestDto;
+import com.cewb.app.model.Category;
 import com.cewb.app.model.User;
 import com.cewb.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User item(@PathVariable Long id) {
         return this.userService.findById(id);
+    }
+
+    @GetMapping("/search")
+    public Page<User> readCategoriesInPage(@RequestParam(value = "page", defaultValue = "0") int pageNum, @RequestParam(defaultValue = "", value = "search") String search) {
+        return userService.findByKeyword(pageNum, search);
     }
 
     @PutMapping("/{id}")

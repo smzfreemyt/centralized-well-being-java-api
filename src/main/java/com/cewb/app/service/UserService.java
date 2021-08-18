@@ -5,8 +5,6 @@ import com.cewb.app.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Map;
-
 public interface UserService {
 
     Page<User> findAll(int pageNum);
@@ -18,4 +16,6 @@ public interface UserService {
     User update(UserRequestDto user, Long id);
 
     ResponseEntity<?> delete(Long id);
+
+    Page<User> findByKeyword(int pageNum, String search);
 }
