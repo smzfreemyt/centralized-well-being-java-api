@@ -27,15 +27,6 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    JwtProvider jwtProvider;
-
-    @Autowired
-    private AuthSecurityService authSecurityService;
-
-    @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     /**
@@ -45,7 +36,7 @@ public class LoginController {
     @PostAuthorize("hasAnyAuthority(@R.ROLE_USER)")
     public ResponseEntity<?> userLogin(@Valid @RequestBody LoginSecurityDto loginRequest) {
         log.info("Login as USER role");
-        return this.doLogin(loginRequest);
+        return ResponseEntity.ok(userDetailsService.doLogin(loginRequest));
     }
 
     /**
@@ -55,22 +46,6 @@ public class LoginController {
     @PostAuthorize("hasAnyAuthority({@R.ROLE_ADMIN,@R.ROLE_EDITOR})")
     public ResponseEntity<?> adminLogin(@Valid @RequestBody LoginSecurityDto loginRequest) {
         log.info("Login as ADMIN role");
-        return this.doLogin(loginRequest);
-    }
-
-    private ResponseEntity<?> doLogin(LoginSecurityDto loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
-
-        String jwt = jwtProvider.generateJwtToken(authentication);
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails));
+        return ResponseEntity.ok(userDetailsService.doLogin(loginRequest));
     }
 }
