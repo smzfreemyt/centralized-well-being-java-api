@@ -56,11 +56,21 @@
 				{
 					"name": "Create company",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VydGVzdEBhZG1pbi5jb20iLCJpYXQiOjE2Mjg3NTU5NzIsImV4cCI6MTYyODg3NTk3Mn0.Ks-ahABYZQ1MbNIaB4pHtvxLWZcxYh-5QeardWbPZ5AAtzAUMBtr5kN6a1kSwZA1gkLt4_FToVdMYEMniTNDWQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Fk\",\r\n    \"logo\": \"https://cdn.icon-icons.com/icons2/1826/PNG/512/4202107facebookfblogosocialsocialmedia-115710_115591.png\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Fakebook\",\r\n    \"logo\": \"https://cdn.icon-icons.com/icons2/1826/PNG/512/4202107facebookfblogosocialsocialmedia-115710_115591.png\",\r\n    \"website\": \"facebook.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,18 +336,142 @@
 					"response": []
 				},
 				{
-					"name": "get all reports",
+					"name": "generate reports",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjkxNjk2NzcsImV4cCI6MTYyOTI4OTY3N30.iqF0FPQaJIPxebX1BTVW1rpjd9erqRjpOdl82g10IIZUAeYORatEw3ohVq_hMR2hsTkuEF-X7vFkDuwXpNFyqQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"2021-08-09\",\r\n    \"endDate\": \"2021-08-19\",\r\n    \"status\": \"Pending\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/reports",
+							"raw": "localhost:8080/api/reports/generate",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"reports"
+								"api",
+								"reports",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjkxNjk2NzcsImV4cCI6MTYyOTI4OTY3N30.iqF0FPQaJIPxebX1BTVW1rpjd9erqRjpOdl82g10IIZUAeYORatEw3ohVq_hMR2hsTkuEF-X7vFkDuwXpNFyqQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user test\",\r\n    \"email\": \"usertest@admin.com\",\r\n    \"password\": \"test123\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user test\",\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjkxNjk2NzcsImV4cCI6MTYyOTI4OTY3N30.iqF0FPQaJIPxebX1BTVW1rpjd9erqRjpOdl82g10IIZUAeYORatEw3ohVq_hMR2hsTkuEF-X7vFkDuwXpNFyqQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
 							]
 						}
 					},
