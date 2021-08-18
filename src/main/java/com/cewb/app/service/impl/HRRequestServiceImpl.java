@@ -6,7 +6,14 @@ import com.cewb.app.model.HRRequest;
 import com.cewb.app.repository.HRRequestRepository;
 import com.cewb.app.service.HRRequestService;
 import com.cewb.app.utility.AppUtility;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,21 +23,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.EntityNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class HRRequestServiceImpl implements HRRequestService {
@@ -61,7 +53,12 @@ public class HRRequestServiceImpl implements HRRequestService {
 		
         return result;
 	}
-	
+
+	@Override
+	public Page<HRRequest> findByName(int pageNum, String keyword) {
+		return requestRepository.findByRequestorLike(AppUtility.getSqlKeyword(keyword), PageRequest.of(pageNum, ConfigRepository.PER_PAGE));
+	}
+
 	@Override
 	public HRRequest save(HRRequest request) {
 		return requestRepository.save(request);

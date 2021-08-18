@@ -1,15 +1,13 @@
 package com.cewb.app.service;
 
+import com.cewb.app.dto.request.HrRequestDto;
+import com.cewb.app.model.HRRequest;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.data.domain.Page;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-
-import org.springframework.data.domain.Page;
-
-import com.cewb.app.dto.request.HrRequestDto;
-import com.cewb.app.model.HRRequest;
-
-import net.sf.jasperreports.engine.JRException;
 
 public interface HRRequestService {
 	
@@ -18,6 +16,8 @@ public interface HRRequestService {
 	List<HRRequest> findByFilter(HrRequestDto hrRequest);
 	
 	HRRequest findById(Long id);
+
+	Page<HRRequest> findByName(int pageNum, String keyword);
 	
 	HRRequest save(HRRequest request);
 	

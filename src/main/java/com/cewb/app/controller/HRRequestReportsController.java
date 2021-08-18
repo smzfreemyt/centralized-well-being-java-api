@@ -1,28 +1,19 @@
 package com.cewb.app.controller;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.cewb.app.config.RequestStatus;
 import com.cewb.app.dto.request.HrRequestDto;
 import com.cewb.app.model.HRRequest;
 import com.cewb.app.service.HRRequestService;
-
 import lombok.extern.log4j.Log4j2;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
@@ -58,6 +49,12 @@ public class HRRequestReportsController {
 		item.setStatus(request.getStatus());
 		
 		return requestService.update(item);
+	}
+
+	@GetMapping("/reports/search")
+	public Page<HRRequest> readRequestsInPage(@RequestParam(value = "page", defaultValue = "0") int pageNum, @RequestParam(defaultValue = "", value = "search") String search) {
+		log.info("search reports page - " + pageNum);
+		return requestService.findByName(pageNum, search);
 	}
 
 	//Delete request
