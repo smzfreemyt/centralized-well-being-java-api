@@ -60,7 +60,7 @@ class PostControllerTest {
         when(postService.findById(anyLong())).thenReturn(post);
 
         // Create a mock HTTP request to verify the expected result
-        mockMvc.perform(MockMvcRequestBuilders.get("/posts/1").with(user("user")))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/posts/1").with(user("user")))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Time management Hacks"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.body").value("manage your time"))
@@ -81,7 +81,7 @@ class PostControllerTest {
         when(postService.save(any(Post.class))).thenReturn(post);
 
         //mock request "/posts"
-        mockMvc.perform(MockMvcRequestBuilders.post("/posts").with(user("user"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/posts").with(user("user"))
                 .content(new ObjectMapper().writeValueAsString(post))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -106,7 +106,7 @@ class PostControllerTest {
         when(postService.save(any(Post.class))).thenReturn(post);
 
         //mock request "/posts"
-        mockMvc.perform(MockMvcRequestBuilders.put("/posts").with(user("user"))
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/posts").with(user("user"))
                 .content(new ObjectMapper().writeValueAsString(post))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -131,7 +131,7 @@ class PostControllerTest {
         when(postService.delete(anyLong())).thenReturn(post);
 
         //mock request "/posts/{id}"
-        mockMvc.perform(MockMvcRequestBuilders.delete("/posts/2").with(user("user")))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/posts/2").with(user("user")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
